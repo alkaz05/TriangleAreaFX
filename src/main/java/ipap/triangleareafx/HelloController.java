@@ -1,13 +1,9 @@
 package ipap.triangleareafx;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-
-import java.util.InputMismatchException;
 
 public class HelloController {
 
@@ -26,18 +22,47 @@ public class HelloController {
     @FXML
     private TextField side3;
 
+    FigureType fType = FigureType.Triangle;
+
     public void initialize(){
         result.setText("а у нас произошла инициализация!");
-        btnCalc.setOnAction(a -> calculate());
+        btnCalc.setOnAction(a -> calculateAreaTriangle());
 //        btnCalc.setOnAction(new EventHandler<ActionEvent>() {
 //            @Override
 //            public void handle(ActionEvent actionEvent) {
-//                calculate();
+//                calculateAreaTriangle();
 //            }
 //        });
     }
 
-    public void calculate(){
+    public void switchFigure(){
+        switch (fType){
+            case Triangle:
+                btnCalc.setOnAction(a -> calculateAreaTriangle());
+                break;
+            case Rectangle:
+                btnCalc.setOnAction(a -> calculateAreaRect());
+            default:
+                btnCalc.setOnAction(a -> result.setText("у меня лапки"));
+        }
+    }
+
+    public void calculateAreaRect() {
+        try {
+            double a = Double.parseDouble(side1.getText());
+            double b = Double.parseDouble(side2.getText());
+            //double c = Double.parseDouble(side3.getText());
+            Rectangle r = new Rectangle(a, b);
+            double res = r.getArea();
+            result.setText(String.valueOf(res));
+        } catch (NumberFormatException e) {
+            result.setText("да это не числа вообще");
+        } catch (UnnaturalLengthEx e) {
+            result.setText(e.getMessage() + " " + e.number);
+        }
+    }
+
+    public void calculateAreaTriangle(){
         try {
             double a = Double.parseDouble(side1.getText());
             double b = Double.parseDouble(side2.getText());
