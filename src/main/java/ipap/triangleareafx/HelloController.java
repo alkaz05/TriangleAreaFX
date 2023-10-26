@@ -42,12 +42,16 @@ public class HelloController {
             double a = Double.parseDouble(side1.getText());
             double b = Double.parseDouble(side2.getText());
             double c = Double.parseDouble(side3.getText());
-
-            double res = 0;
+            Triangle t = new Triangle(a, b, c);
+            double res = t.getArea();
             result.setText(String.valueOf(res));
         }catch (NumberFormatException e)
         {
             result.setText("да это не числа вообще");
+        } catch (UnnaturalLengthEx e) {
+            result.setText(e.getMessage()+" "+e.number);
+        } catch (ImpossibleTriangleEx e) {
+            result.setText("ААААА"+"\n"+e.getMessage());
         }
 
     }
