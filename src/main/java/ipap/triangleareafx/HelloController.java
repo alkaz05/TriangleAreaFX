@@ -1,7 +1,9 @@
 package ipap.triangleareafx;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
@@ -18,15 +20,26 @@ public class HelloController {
 
     @FXML
     private TextField side2;
-
     @FXML
     private TextField side3;
+    @FXML
+    private TextField side4;
+
+    @FXML
+    private RadioButton radioRec;
+
+    @FXML
+    private RadioButton radioTra;
+
+    @FXML
+    private RadioButton radioTre;
 
     FigureType fType = FigureType.Triangle;
 
     public void initialize(){
         result.setText("а у нас произошла инициализация!");
         btnCalc.setOnAction(a -> calculateAreaTriangle());
+        side4.setVisible(false);
 //        btnCalc.setOnAction(new EventHandler<ActionEvent>() {
 //            @Override
 //            public void handle(ActionEvent actionEvent) {
@@ -42,9 +55,38 @@ public class HelloController {
                 break;
             case Rectangle:
                 btnCalc.setOnAction(a -> calculateAreaRect());
+                break;
             default:
                 btnCalc.setOnAction(a -> result.setText("у меня лапки"));
         }
+    }
+
+    @FXML
+    void radioClick(ActionEvent event) {
+        RadioButton selected = (RadioButton) event.getSource();
+        if(selected == radioTre) {
+            fType = FigureType.Triangle;
+            side1.setVisible(true);
+            side2.setVisible(true);
+            side3.setVisible(true);
+            side4.setVisible(false);
+        }
+        if(selected == radioRec){
+            fType=FigureType.Rectangle;
+            side1.setVisible(true);
+            side2.setVisible(true);
+            side3.setVisible(false);
+            side4.setVisible(false);
+        }
+        if (selected == radioTra){
+            fType=FigureType.Trapezia;
+            side1.setVisible(true);
+            side2.setVisible(true);
+            side3.setVisible(true);
+            side4.setVisible(true);
+        }
+
+        switchFigure();
     }
 
     public void calculateAreaRect() {
