@@ -38,8 +38,10 @@ public class HelloController {
 
     public void initialize(){
         result.setText("а у нас произошла инициализация!");
-        btnCalc.setOnAction(a -> calculateAreaTriangle());
-        side4.setVisible(false);
+        //btnCalc.setOnAction(a -> calculateAreaTriangle());
+        //side4.setVisible(false);
+        switchFigure();
+        switchVisibility();
 //        btnCalc.setOnAction(new EventHandler<ActionEvent>() {
 //            @Override
 //            public void handle(ActionEvent actionEvent) {
@@ -47,7 +49,6 @@ public class HelloController {
 //            }
 //        });
     }
-
     public void switchFigure(){
         switch (fType){
             case Triangle:
@@ -60,33 +61,48 @@ public class HelloController {
                 btnCalc.setOnAction(a -> result.setText("у меня лапки"));
         }
     }
+    public void switchVisibility(){
+        switch (fType){
+            case Triangle:
+                side1.setVisible(true);
+                side2.setVisible(true);
+                side3.setVisible(true);
+                side4.setVisible(false);
+                //todo: спрятать надпись сторона 4
+                break;
+            case Rectangle:
+                side1.setVisible(true);
+                side2.setVisible(true);
+                side3.setVisible(false);
+                side4.setVisible(false);
+                //todo: спрятать надпись сторона 3, сторона 4
+                break;
+
+            case Trapezia:
+                side1.setVisible(true);
+                side2.setVisible(true);
+                side3.setVisible(true);
+                side4.setVisible(true);
+                //todo: показать надпись сторона 3, сторона 4
+                break;
+        }
+    }
 
     @FXML
     void radioClick(ActionEvent event) {
         RadioButton selected = (RadioButton) event.getSource();
         if(selected == radioTre) {
             fType = FigureType.Triangle;
-            side1.setVisible(true);
-            side2.setVisible(true);
-            side3.setVisible(true);
-            side4.setVisible(false);
         }
         if(selected == radioRec){
             fType=FigureType.Rectangle;
-            side1.setVisible(true);
-            side2.setVisible(true);
-            side3.setVisible(false);
-            side4.setVisible(false);
         }
         if (selected == radioTra){
             fType=FigureType.Trapezia;
-            side1.setVisible(true);
-            side2.setVisible(true);
-            side3.setVisible(true);
-            side4.setVisible(true);
         }
 
         switchFigure();
+        switchVisibility();
     }
 
     public void calculateAreaRect() {
