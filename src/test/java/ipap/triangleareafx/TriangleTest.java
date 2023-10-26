@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class TriangleTest {
-    //todo: Проверить правильность работы класса Triangle
+
     @Test
     void test1() throws UnnaturalLengthEx, ImpossibleTriangleEx {
         Triangle t = new Triangle(10, 10, 10);
